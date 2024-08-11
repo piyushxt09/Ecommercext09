@@ -1,0 +1,71 @@
+
+:root {
+   --primary-color: rgb(255, 109, 56); 
+}
+body{
+    overflow-x: hidden;
+}
+nav i{
+    font-size: 24px;
+    visibility: hidden;
+    position: absolute;
+}
+nav ul {
+    display: flex;
+    gap: 30px;
+}
+nav ul li {
+    list-style: none;
+}
+nav ul li a{
+    text-decoration: none;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+}
+nav ul li a:hover{
+    color: rgb(255, 255, 255);
+}
+nav h2{
+    color: rgb(255, 255, 255);
+}
+nav {
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    justify-content: space-around;
+    margin: -10px -10px 30px -10px;
+}
+.LoginBtn{
+    display: flex;
+    gap: 20px;
+}
+nav button{
+    font-size: 15px;
+    font-weight: 600;
+    padding: 8px;
+    border: 1px solid rgb(2, 2, 2);
+    background-color: black;
+    color: whitesmoke;
+    cursor: pointer;  
+    transition: 0.4s ease;
+}
+nav button:hover{
+    background-color: transparent;
+    border: 1px solid whitesmoke;
+}
+@media screen and (max-width: 500px) {
+    nav ul{
+        display: none;
+    }
+    nav{
+        width: 100vw;
+    }
+    .SignupBtn{
+        display: none;
+    }
+    nav i{
+        visibility: visible;
+        position: relative;
+    }
+}

@@ -1,0 +1,65 @@
+
+.HomePage{
+    background-image: url('/backimage.avif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 89.8vh;
+    width: 100vw;
+    margin: -30px 0px 0px -10px;
+    display: flex;
+    align-items: center;
+}
+.Headings{
+    position: relative;
+    left: 100px;
+    top: -100px;
+}
+.Headings h1{
+    font-size: 50px;
+    color: rgb(255, 109, 56);
+}
+.Headings p{
+    margin-top: -30px;
+    font-size: 22px;
+    color: whitesmoke;
+}
+.Headings button{
+    font-size: 20px;
+    padding: 5px 30px;
+    background-color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    cursor: pointer;
+    color: white;
+    transition: 0.4s;
+}
+.Headings button:hover{
+    background-color: transparent;
+    /* color: black; */
+}
+
+@media screen and (max-width: 500px){
+    .HomePage{
+       width: 101vw;
+       height: 40vh;
+    }
+    .Headings h1{
+        font-size: 30px;
+        color: black;
+    }
+    .Headings{
+        position: relative;
+        left: 30px;
+        top: 0px;
+        padding: 10px;
+    }
+    .Headings p{
+        font-size: 14px;
+        margin-top: -20px;
+        color: var(--primary-color);
+    }
+    .Headings button{
+        font-size: 15px;
+        padding: 4px 20px;
+    }
+}

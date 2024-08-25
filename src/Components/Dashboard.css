@@ -1,0 +1,22 @@
+.fa-cart-shopping {
+    visibility: visible;
+    right: 30px;
+    font-size: 40px;
+    position: relative;
+    cursor: pointer;
+    color: white;
+}
+
+.Cart {
+    display: flex;
+    align-items: center;
+}
+
+.cartCount {
+       position: relative;
+       z-index: 1;
+       bottom: 5px;
+       right: -4px;
+       color: var(--primary-color);
+       text-decoration: none;
+}

@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import './APIdata.css'
 import Navbar from './Navbar';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export default function DataApi() {
-    const url = 'https://fakestoreapi.com/products';
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': 'b8cfebec47mshe02a585e3673dc5p13693fjsn2b0b88f410b5',
-            'x-rapidapi-host': 'real-time-amazon-data.p.rapidapi.com'
+export default function DataApi({ data }) {
+    const navigate = useNavigate();
+    const handleAddtoCart = async (e) => {
+        e.preventDefault();
+        const Authentication = localStorage.getItem('Authentication');
+        if (Authentication) {
+            if (Authentication === 'logout') {
+                navigate('/login');
+                localStorage.setItem('Authentication', 'login');
+            }
+
+        }
+        else {
+            navigate('/login');
         }
     };
 
-    const [data, setData] = useState(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(url, options);
-                const result = await response.json();
-                setData(result);
-                console.log(result)
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
     return (
-        <div>
+        <div className='ProductsHome'>
             <Navbar />
             {data ? (
                 <div className='Products'>
@@ -43,7 +35,7 @@ export default function DataApi() {
                                 <p> Price: &#8377; {item.price}</p>
                                 <div>
                                     <h5>Rating: {item.rating.rate} &#9734;</h5>
-                                    <button>Add to cart</button>
+                                    <button onClick={handleAddtoCart}>Add to cart</button>
                                 </div>
                             </div>
                         </div>

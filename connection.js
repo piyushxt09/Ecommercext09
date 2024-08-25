@@ -4,6 +4,9 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import session from 'express-session';
+
 
 const Schema = mongoose.Schema;
 
@@ -18,6 +21,7 @@ import { fileURLToPath } from 'url';
 
 const app = express();
 const port = 4000;
+const SECRET_KEY = 'piyushxt';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -27,6 +31,7 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(session({ secret: SECRET_KEY, resave: false, saveUninitialized: true, cookie: { secure: false } }))
 
 // The catch-all handler: for any request that doesn't match a static file, send back index.html
 app.get('*', (req, res) => {
@@ -57,6 +62,10 @@ app.post('/api/signup', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ username, password: hashedPassword });
         await newUser.save();
+
+        const token = jwt.sign({ userId: newUser._id, username: newUser.username }, SECRET_KEY, { expiresIn: '1h' });
+        req.session.token = token;
+
         res.status(201).json({ message: 'User registered successfully' });
 
     } catch (error) {
@@ -82,12 +91,42 @@ app.post('/api/login', async (req, res) => {
         }
 
         // Successful login
-        res.status(200).json({ message: 'Login successful' });
+        const token = jwt.sign({ userId: user._id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
+        req.session.token = token;
+        res.status(200).json({ message: username });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ message: 'Error logging in', error });
     }
 })
+
+function isAuthenticated(req, res, next) {
+    if (req.session && req.session.token) {
+        // Proceed to the next middleware or route handler
+        next();
+    } else {
+        // If the user is not authenticated, redirect or send a forbidden response
+        res.status(401).json({ message: 'Unauthorized access' });
+    }
+}
+
+app.get('/dashboard', isAuthenticated, (req, res) => {
+    // Respond with the dashboard data or HTML
+    res.json({ message: 'Welcome to the dashboard' });
+});
+
+
+//  user logout code here
+app.post('/api/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Failed to destroy session:', err);
+            return res.status(500).json({ message: 'Failed to log out' });
+        }
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.status(200).json({ message: 'Logged out successfully' });
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

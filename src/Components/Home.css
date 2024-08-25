@@ -1,30 +1,49 @@
-
-.HomePage{
-    background-image: url('/backimage.avif');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 89.8vh;
+.HomePage {
+    height: 100vh;
     width: 100vw;
     margin: -30px 0px 0px -10px;
     display: flex;
     align-items: center;
+    position: relative;
+    overflow: hidden;
 }
-.Headings{
+
+.HomePage::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/ecommerce2.webp');
+    /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    /* Opacity applied only to the background image */
+    z-index: 1;
+}
+
+.Headings {
     position: relative;
     left: 100px;
     top: -100px;
+    z-index: 2;
 }
-.Headings h1{
+
+.Headings h1 {
     font-size: 50px;
-    color: rgb(255, 109, 56);
+    color: var(--primary-color);
 }
-.Headings p{
+
+.Headings p {
     margin-top: -30px;
     font-size: 22px;
-    color: whitesmoke;
+    color: rgb(0, 0, 0);
 }
-.Headings button{
+
+.Headings button {
     font-size: 20px;
     padding: 5px 30px;
     background-color: var(--primary-color);
@@ -33,32 +52,33 @@
     color: white;
     transition: 0.4s;
 }
-.Headings button:hover{
+
+.Headings button:hover {
     background-color: transparent;
     /* color: black; */
 }
 
-@media screen and (max-width: 500px){
-    .HomePage{
-       width: 101vw;
-       height: 40vh;
-    }
-    .Headings h1{
+
+@media screen and (max-width: 500px) {
+
+
+    .Headings h1 {
         font-size: 30px;
         color: black;
     }
-    .Headings{
+
+    .Headings {
         position: relative;
-        left: 30px;
-        top: 0px;
-        padding: 10px;
+        left: 40px;
+        top: -100px;
     }
-    .Headings p{
+
+    .Headings p {
         font-size: 14px;
         margin-top: -20px;
-        color: var(--primary-color);
     }
-    .Headings button{
+
+    .Headings button {
         font-size: 15px;
         padding: 4px 20px;
     }

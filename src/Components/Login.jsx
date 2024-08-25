@@ -10,6 +10,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
+  const [user, setUser] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,8 +19,9 @@ export default function Login() {
       const response = await axios.post('http://localhost:4000/api/login', {
         username,
         password,
-      });
+      }, { withCredentials: true });
       if (response.status === 200) {
+        console.log(response.status.message)
         setSuccess('User Login successfull! Redirecting to Dashboard...')
         setTimeout(() => {
           setSuccess('')

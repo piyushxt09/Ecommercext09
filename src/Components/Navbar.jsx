@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 function Navbar() {
   return (
     <nav>
-      <i className="fa-solid fa-bars"></i>
-      <h2>Ecommerce.web</h2>
+      {/* <i className="fa-solid fa-bars"></i> */}
+      <h2>Product.lio</h2>
       <ul>
         <li>
           <Link to='/'>
